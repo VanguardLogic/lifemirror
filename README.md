@@ -1,71 +1,38 @@
-# LifeMirror 3.5 🪞✨
+# LifeMirror
 
-**LifeMirror is your smart, unified dashboard for a balanced digital life.** It brings together your tasks, finances, fitness, mood, and important links into one clean interface.
+A personal life dashboard app built with React, TypeScript, and Vite.
 
-> **Newly Revived**: This project has been migrated to a modern **React + TypeScript (Vite)** frontend while maintaining the original backend architecture.
+## Features
+- **Dashboard**: Overview of tasks, finance, fitness, and mood
+- **Tasks**: Priority tracking & task management
+- **Finance**: Income, expenses, and visual financial breakdown
+- **Fitness**: Activity logs and workout stats
+- **Mood**: Daily mood tracker & journal
+- **Vault**: Secure storage for notes and credentials
+- **Insights**: Analytics across your personal metrics
+- **Settings**: Workspace customization
 
-## ✨ Features
+## Auth
+- **Email & Password**: Simple credential login
+- **Guest Mode**: Explore without an account
 
-* **Holistic Life Score:** Visualize balance across Tasks, Finance, Fitness, Mood, and Digital Organization.
-* **Unified Dashboard:** Centralized view of all your key life metrics.
-* **Smart Modules:**
-    * **Tasks:** Integrated Calendar and List view.
-    * **Finance:** Track bills and subscriptions.
-    * **Fitness:** Monitor steps, sleep, and activity.
-    * **Mood:** Daily mood logging and stress tracking.
-    * **Vault:** Secure digital asset links.
-* **Modern Stack:** React, TypeScript, Chart.js, FullCalendar.
+## Tech Stack
+- **Frontend**: React 19, TypeScript, Vite, React Router
+- **Charts & Icons**: Chart.js, React-Feather, FullCalendar
 
-## 🛠️ Technology Stack
+## Setup & Running
 
-### Client (`/client`)
-* **Framework:** React 18 + TypeScript (Vite)
-* **Styling:** Custom CSS (Original Design Preserved) + Feather Icons
-* **Charts:** Chart.js + react-chartjs-2
-* **Calendar:** FullCalendar
-* **Auth:** Auth0 React SDK
+```bash
+# Install dependencies
+cd client
+npm install
 
-### Backend (`/backend`)
-* **Server:** Node.js + Express
-* **Database:** MongoDB
-* **Auth:** Auth0 (JWT Validation)
+# Start local dev server
+npm run dev
 
-## 🚀 Getting Started
+# Build for production
+npm run build
+```
 
-### Prerequisites
-1. **Node.js**: v16 or higher.
-2. **MongoDB**: A valid connection URI.
-3. **Auth0 Account**: Project is configured, but you can use your own keys.
-
-### Installation
-
-1.  **Clone the Repository:**
-    ```bash
-    git clone https://github.com/your-username/lifemirror.git
-    cd lifemirror
-    ```
-
-2.  **Setup Backend:**
-    ```bash
-    cd backend
-    npm install
-    # Create .env file with your MONGO_URI
-    npm start
-    ```
-
-3.  **Setup Client:**
-    ```bash
-    cd ../client
-    npm install
-    npm run dev
-    ```
-
-4.  **Access:**
-    Open `http://localhost:5173` in your browser.
-
-## ⚠️ Important Notes
-- **Database**: Ensure your `.env` in `backend` has a working `MONGO_URI`. The previous one was unreachable.
-- **Legacy Code**: The old `src` folder in the root is deprecated and has been replaced by `client`.
-
----
-Happy tracking! 🚀
+## Deployment
+Automated deployment to **GitHub Pages** via .github/workflows/deploy.yml on push to main/master.

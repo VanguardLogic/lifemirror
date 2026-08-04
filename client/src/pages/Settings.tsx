@@ -11,7 +11,9 @@ const Settings: React.FC = () => {
                 <h3><Icon.User size={20} style={{ marginRight: '10px', verticalAlign: 'middle' }} /> Profile Information</h3>
 
                 <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px', gap: '20px' }}>
-                    {user?.picture && <img src={user.picture} alt={user.name} style={{ width: '80px', height: '80px', borderRadius: '50%', border: '3px solid var(--c-primary)' }} />}
+                    <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'var(--c-primary)', color: 'white', display: 'grid', placeItems: 'center', fontSize: '28px', fontWeight: 600 }}>
+                        {user?.name?.[0]?.toUpperCase() || 'U'}
+                    </div>
                     <div>
                         <h4 style={{ margin: 0, fontSize: '20px' }}>{user?.name}</h4>
                         <p style={{ margin: '5px 0', color: '#999' }}>{user?.email}</p>
@@ -21,7 +23,6 @@ const Settings: React.FC = () => {
                 <div className="modal-form-group" style={{ marginTop: '30px' }}>
                     <label>Display Name</label>
                     <input type="text" value={user?.name || ''} disabled style={{ background: '#f5f5f5', cursor: 'not-allowed' }} />
-                    <p style={{ fontSize: '12px', color: '#999', marginTop: '5px' }}>Managed by Google Account</p>
                 </div>
 
                 <div className="modal-form-group">

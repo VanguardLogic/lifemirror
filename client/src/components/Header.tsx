@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { format } from 'date-fns';
 
 const Header: React.FC = () => {
-    const { user, isAuthenticated, logout } = useAuth();
+    const { user, logout } = useAuth();
     const [currentTime, setCurrentTime] = useState(new Date());
 
     useEffect(() => {
@@ -27,13 +27,9 @@ const Header: React.FC = () => {
                 <div className="control-icon-wrapper">
                     <Icon.Bell />
                 </div>
-                {isAuthenticated && user?.picture ? (
-                    <img src={user.picture} alt={user.name} className="profile-pic" />
-                ) : (
-                    <div className="profile-pic" style={{ display: 'grid', placeItems: 'center', background: 'var(--c-primary)', color: 'white' }}>
-                        {user?.name?.[0]?.toUpperCase() || 'U'}
-                    </div>
-                )}
+                <div className="profile-pic" style={{ display: 'grid', placeItems: 'center', background: 'var(--c-primary)', color: 'white' }}>
+                    {user?.name?.[0]?.toUpperCase() || 'U'}
+                </div>
             </div>
         </header>
     );

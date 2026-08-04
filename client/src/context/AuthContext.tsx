@@ -1,21 +1,18 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { GoogleOAuthProvider, googleLogout } from '@react-oauth/google';
-import { jwtDecode } from "jwt-decode";
 
-interface User {
+export interface User {
     name: string;
     email: string;
-    picture: string;
-    sub: string;
+    isGuest?: boolean;
 }
 
 interface AuthContextType {
     user: User | null;
-    token: string | null;
     logout: () => void;
+    loginWithEmail: (email: string, name?: string) => void;
+    loginAsGuest: () => void;
     isAuthenticated: boolean;
     isLoading: boolean;
-    setLoginSuccess: (token: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -28,70 +25,53 @@ export const useAuth = () => {
     return context;
 };
 
-// Internal component to manage state, nested inside GoogleOAuthProvider
-const AuthStateProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
-    const [token, setToken] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const storedToken = localStorage.getItem('google_id_token');
-        if (storedToken) {
+        const storedUser = localStorage.getItem('lifemirror_user');
+        if (storedUser) {
             try {
-                const decoded: any = jwtDecode(storedToken);
-                // Simple expiry check (exp is in seconds)
-                if (decoded.exp && decoded.exp * 1000 < Date.now()) {
-                    throw new Error("Token expired");
-                }
-                setUser({
-                    name: decoded.name,
-                    email: decoded.email,
-                    picture: decoded.picture,
-                    sub: decoded.sub
-                });
-                setToken(storedToken);
+                setUser(JSON.parse(storedUser));
             } catch (e) {
-                console.error("Invalid or expired stored token", e);
-                localStorage.removeItem('google_id_token');
+                console.error("Failed to parse stored user", e);
+                localStorage.removeItem('lifemirror_user');
             }
         }
         setIsLoading(false);
     }, []);
 
     const logout = () => {
-        googleLogout();
-        localStorage.removeItem('google_id_token');
+        localStorage.removeItem('lifemirror_user');
         setUser(null);
-        setToken(null);
     };
 
-    const setLoginSuccess = (idToken: string) => {
-        try {
-            localStorage.setItem('google_id_token', idToken);
-            setToken(idToken);
-            const decoded: any = jwtDecode(idToken);
-            setUser({
-                name: decoded.name,
-                email: decoded.email,
-                picture: decoded.picture,
-                sub: decoded.sub
-            });
-        } catch (error) {
-            console.error("Failed to decode token", error);
-        }
+    const loginWithEmail = (email: string, name?: string) => {
+        const displayName = name || email.split('@')[0] || 'User';
+        const userData: User = {
+            name: displayName,
+            email: email,
+            isGuest: false
+        };
+        localStorage.setItem('lifemirror_user', JSON.stringify(userData));
+        setUser(userData);
+    };
+
+    const loginAsGuest = () => {
+        const guestData: User = {
+            name: 'Guest User',
+            email: 'guest@lifemirror.local',
+            isGuest: true
+        };
+        localStorage.setItem('lifemirror_user', JSON.stringify(guestData));
+        setUser(guestData);
     };
 
     return (
-        <AuthContext.Provider value={{ user, token, logout, isAuthenticated: !!user, isLoading, setLoginSuccess }}>
+        <AuthContext.Provider value={{ user, logout, loginWithEmail, loginAsGuest, isAuthenticated: !!user, isLoading }}>
             {children}
         </AuthContext.Provider>
     );
 };
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    return (
-        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-            <AuthStateProvider>{children}</AuthStateProvider>
-        </GoogleOAuthProvider>
-    );
-};
