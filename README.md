@@ -33,6 +33,3 @@ npm run dev
 # Build for production
 npm run build
 ```
-
-## Deployment
-Configured for deployment on **Vercel** (`vercel.json` included at root and backend).
