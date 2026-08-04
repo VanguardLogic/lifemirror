@@ -75,18 +75,18 @@ app.get('/', (req, res) => {
 });
 
 // =======================================================
-// 3. API Route Registration (Protected by Google Auth)
+// 3. API Route Registration
 // =======================================================
-const verifyGoogleToken = require('./src/middleware/auth');
+const verifyAuthToken = require('./src/middleware/auth');
 
-app.use('/api/tasks', verifyGoogleToken, taskRoutes);
-app.use('/api/bills', verifyGoogleToken, billRoutes);
-app.use('/api/assets', verifyGoogleToken, assetRoutes);
-app.use('/api/fitness-logs', verifyGoogleToken, fitnessRoutes);
-app.use('/api/mood-logs', verifyGoogleToken, moodRoutes);
-app.use('/api/dashboard', verifyGoogleToken, dashboardRoutes);
-app.use('/api/habits', verifyGoogleToken, habitRoutes); // Register Habit Routes
-app.use('/api/savings', verifyGoogleToken, savingsRoutes); // Register Savings Routes
+app.use('/api/tasks', verifyAuthToken, taskRoutes);
+app.use('/api/bills', verifyAuthToken, billRoutes);
+app.use('/api/assets', verifyAuthToken, assetRoutes);
+app.use('/api/fitness-logs', verifyAuthToken, fitnessRoutes);
+app.use('/api/mood-logs', verifyAuthToken, moodRoutes);
+app.use('/api/dashboard', verifyAuthToken, dashboardRoutes);
+app.use('/api/habits', verifyAuthToken, habitRoutes); // Register Habit Routes
+app.use('/api/savings', verifyAuthToken, savingsRoutes); // Register Savings Routes
 
 // =======================================================
 // 4. Start Server
