@@ -35,4 +35,4 @@ npm run build
 ```
 
 ## Deployment
-Configured for deployment on **Netlify** (Publish directory: `client/dist`, Build command: `cd client && npm install && npm run build`).
+Configured for deployment on **Vercel** (`vercel.json` included at root and backend).
