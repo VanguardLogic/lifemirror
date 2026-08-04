@@ -35,4 +35,4 @@ npm run build
 ```
 
 ## Deployment
-Automated deployment to **GitHub Pages** via .github/workflows/deploy.yml on push to main/master.
+Configured for deployment on **Netlify** (Publish directory: `client/dist`, Build command: `cd client && npm install && npm run build`).
