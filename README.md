@@ -25,7 +25,7 @@ A personal life dashboard app built with React, TypeScript, and Vite.
 Requires **Node.js 20+**.
 
 ```bash
-git clone https://github.com/kuberbassi/lifemirror.git
+git clone https://github.com/VanguardLogic/lifemirror.git
 cd lifemirror
 
 # Install root & backend dependencies
