@@ -22,14 +22,28 @@ A personal life dashboard app built with React, TypeScript, and Vite.
 
 ## Setup & Running
 
+Requires **Node.js 20+**.
+
 ```bash
-# Install dependencies
-cd client
+git clone https://github.com/kuberbassi/lifemirror.git
+cd lifemirror
+
+# Install root & backend dependencies
 npm install
 
-# Start local dev server
+# Install frontend dependencies
+cd client
+npm install
+cd ..
+
+# Configure .env files in backend/ and client/ if using MongoDB / Google Auth
+
+# Run backend (terminal 1)
+npm run dev:backend
+
+# Run frontend (terminal 2)
 npm run dev
 
-# Build for production
+# Build frontend for production
 npm run build
 ```
